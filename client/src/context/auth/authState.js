@@ -1,6 +1,10 @@
 import React, { useReducer } from 'react';
 import AuthContext from './authContext';
 import AuthReducer from './authReducer';
+import axois from 'axios';
+import SetAuthToken from '../../utils/setAuthToken';
+
+
 
 import {
     REGISTER_SUCCESS,
@@ -15,42 +19,102 @@ import {
 
 
 
-
-
 const AuthState = (props) => {
     const initialState = {
-       token: localStorage.getItem("token"),
-       isAuthenticated: null,
-       loading: true,
-       error: null,
-       user: null
+        token: localStorage.getItem("token"),
+        isAuthenticated: null,
+        loading: true,
+        error: null,
+        user: null
     };
-
     const [state, dispatch] = useReducer(AuthReducer, initialState);
+
+
+
+    const loadUser = async () => {
+
+        if(localStorage.token){
+            SetAuthToken(localStorage.token)
+        }
+        
+        try {
+            const res = await axois.get('/api/auth');
+            dispatch({
+                type: USER_LOADED,
+                payload: res.data
+            })
+        } catch (err) {
+            dispatch({
+                type: AUTH_ERROR,
+            })
+        }
+        
+    }
+
+    // Register User 
+    const registerUser = async FormData => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        try {
+            const res = await axois.post('/api/users', FormData, config);
+            dispatch({
+                type: REGISTER_SUCCESS,
+                payload: res.data
+            })
+            loadUser();
+        } catch (err) {
+            dispatch({
+                type: REGISTER_FAIL,
+                payload: err.response.data.msg
+            })
+
+        }
+    }
 
 
     // USER_LOADED
 
 
-    // REGISTER_SUCCESS
+  
 
+    const login =  async FormData  => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
 
-    // REGISTER_FAIL
+        try {
+            const res = await axois.post('/api/auth', FormData, config);
+            dispatch({
+                type: LOGIN_SUCESS,
+                payload: res.data
+            })
+            loadUser();
+        } catch (err) {
+            dispatch({
+                type: LOGIN_FAIL,
+                payload: err.response.data.msg
+            })
 
+        }
+    }
+    const logout = () => {
+        dispatch({
+            type: LOGOUT
+        })
+        
+    }
+    const clearError = () => {
+        dispatch({
+            type: CLEAR_ERRORS,
+        })
+    }
 
-    // AUTH_ERROR
-
-
-    // LOGIN_SUCESS
-
-
-    // LOGIN_FAIL
-
-
-    // LOGOUT
-
-
-    // CLEAR_ERRORS
 
     return (
         <AuthContext.Provider
@@ -59,14 +123,17 @@ const AuthState = (props) => {
                 isAuthenticated: state.isAuthenticated,
                 loading: state.loading,
                 error: state.error,
-                user: state.user
+                user: state.user,
+                registerUser,
+                loadUser,
+                login,
+                logout,
+                clearError
             }}>
             {props.children}
         </AuthContext.Provider>
-    ) 
+    )
 };
-
-
 
 
 export default AuthState;

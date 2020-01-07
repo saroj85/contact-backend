@@ -9,6 +9,7 @@ const Alert = () => {
         {alertContext && alertContext.alerts.length > 0 &&
             alertContext.alerts.map(alert =>
                 <div key={alert.id} className={`alert  alert_${alert.type}`}>
+                    <i className="fas fa-exclamation-triangle"></i>
                     {alert.msg}
                 </div>
             )}

@@ -8,7 +8,10 @@ import {
     CLEAR_FILTER,
     SET_ALERT,
     REMOVE_ALERT,
-    ADD_CONTACT
+    ADD_CONTACT,
+    CONTACTS_ERROR,
+    GET_CONTACTS,
+    CLEAR_CONTACTS
 } from '../type';
 
 
@@ -20,11 +23,19 @@ export default (state, action) => {
                 ...state,
                 contacts: [...state.contacts, action.payload]
             }
+        case GET_CONTACTS: 
+        return {
+            ...state,
+            contacts: action.payload,
+            loading: false,
 
+        }
         case UPDATE_CONTACT:
             return {
                 ...state,
-                contacts: state.contacts.map(contact => contact.id === action.payload.id ? action.payload : contact)
+                contacts: state.contacts.map(contact => contact.id === action.payload.id ? action.payload : contact),
+                loading: false,
+
             }
 
         case FILTER_CONTACTS:
@@ -33,19 +44,25 @@ export default (state, action) => {
                 filterd: state.contacts.filter(contact => {
                     const Regx = new RegExp(`${action.payload}`, 'gi');
                     return contact.name.match(Regx) || contact.email.match(Regx)
-                })
+                }),
+                loading: false,
+
             }
 
         case CLEAR_FILTER:
             return{
                 ...state,
-                filterd: null
+                filterd: null,
+                loading: false,
+
             }
 
         case DELETE_CONTACT:
             return {
                 ...state,
-                contacts: state.contacts.filter(contact => contact.id !== action.payload)
+                contacts: state.contacts.filter(contact => contact.id !== action.payload),
+                loading: false,
+                
             }
 
         case SET_CURRENT:
@@ -58,6 +75,12 @@ export default (state, action) => {
             return{
                 ...state,
                 current: null
+            }
+        case CONTACTS_ERROR:
+            return{
+                ...state,
+                error: action.payload,
+                loading: false,
             }
             
         default:

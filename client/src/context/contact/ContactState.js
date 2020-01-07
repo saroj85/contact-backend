@@ -1,7 +1,9 @@
 import React, { useReducer } from 'react';
 import uuid from 'uuid';
+import axois from 'axios';
 import ContactContext from './contactContext';
 import ContactReducer from './contactReducer';
+
 
 import {
     DELETE_CONTACT,
@@ -12,7 +14,10 @@ import {
     CLEAR_FILTER,
     SET_ALERT,
     REMOVE_ALERT,
-    ADD_CONTACT
+    ADD_CONTACT,
+    CONTACTS_ERROR,
+    GET_CONTACTS,
+    CLEAR_CONTACTS
 } from '../type';
 
 
@@ -21,42 +26,44 @@ import {
 
 const ContactState = (props) => {
     const initialState = {
-        contacts: [
-            {
-                id: 1,
-                name: "saroj kumar",
-                email: "send4saroij@gmail.com",
-                phone: "1234567890",
-                type: "personal"
-            },
-            {
-                id: 2,
-                name: "Sandeep kumar",
-                email: "sandeep@gmail.com",
-                phone: "4356789876",
-                type: "personal"
-            },
-            {
-                id: 3,
-                name: "Raju kumar",
-                email: "raju4@gmail.com",
-                phone: "081380674787",
-                type: "Professional"
-            },
-        ],
+        contacts: [],
         current: null,
         filterd: null,
+        error:null
     };
 
 
     const [state, dispatch] = useReducer(ContactReducer, initialState);
 
+    // GET CONTACTS 
+
+    const getContacts = async () => {
+        try {
+            const res = await axois.get("/api/contacts",)
+            dispatch({ type: GET_CONTACTS, payload: res.data })
+        } catch (err) {
+            dispatch({
+                type: CONTACTS_ERROR,
+                payload: err.response.msg
+            })
+        }
+    }
+
 
     // ADD CONTACTS
 
-    const addContact = contact => {
-        contact.id = uuid.v4();
-        dispatch({ type: ADD_CONTACT, payload: contact })
+    const addContact = async contact => {
+        // contact.id = uuid.v4();
+        const config = {headers: {'Content-Type': 'application/json'}}
+        try {
+            const res = await axois.post("/api/contacts", contact, config)
+            dispatch({ type: ADD_CONTACT, payload: res.data })
+        } catch (err) {
+            dispatch({
+                type: CONTACTS_ERROR,
+                payload: err.response.msg
+            })
+        }
     }
 
 
@@ -69,7 +76,7 @@ const ContactState = (props) => {
 
 
     // SET CURRENT CONTACT 
-    
+
     const setCurrent = contact => {
         dispatch({ type: SET_CURRENT, payload: contact })
     }
@@ -77,7 +84,7 @@ const ContactState = (props) => {
 
 
     // CLEAR CURRENT CONTACT 
-    
+
     const clearCurrent = () => {
         dispatch({ type: CLEAR_CURRENT })
     }
@@ -95,7 +102,7 @@ const ContactState = (props) => {
     // FILTER CONTACT 
 
     const filterContact = text => {
-        dispatch({type: FILTER_CONTACTS, payload: text})
+        dispatch({ type: FILTER_CONTACTS, payload: text })
     }
 
 
@@ -121,14 +128,14 @@ const ContactState = (props) => {
                 updateContact,
                 filterContact,
                 clearFilter,
-              
+                error: state.error,
+                getContacts
+
             }}>
             {props.children}
         </ContactContext.Provider>
-    ) 
+    )
 };
-
-
 
 
 export default ContactState;

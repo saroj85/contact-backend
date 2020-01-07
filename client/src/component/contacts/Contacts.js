@@ -1,12 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import ContactContaxt from '../../context/contact/contactContext';
 import ContactItem from './Contactitem';
 import Search from '../Search/Search';
 
 const Contacts = () => {
     const contactContext = useContext(ContactContaxt);
-    const { contacts, filterd } = contactContext;
+    const { contacts, filterd, loading, getContacts } = contactContext;
 
+    useEffect(() => {
+        getContacts();
+    }, [])
     if (contacts.length === 0) {
         return <h4>Please Add Contacts</h4>
     }
