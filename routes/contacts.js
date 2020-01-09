@@ -62,7 +62,20 @@ router.post('/', auth, async (req, res) => {
 
 
 router.put('/:id', (req, res) => {
-    res.send("Update Contact")
+    // res.send("Update Contact")
+    console.log(req)
+    Contact.findByIdAndUpdate(req.params.id, req.body, (err) => {
+        if (err) return err;
+        res.send('Update Contact successfully!');
+    })
+
+    // Contact.findByIdAndUpdate(req.params.id, {
+    //     $set: {
+    //         subject: req.body.subject,
+    //         description: req.body.description,
+    //         currentStep: req.body.currentStep
+    //     }
+    // }, callback);
 });
 
 
@@ -73,7 +86,10 @@ router.put('/:id', (req, res) => {
 // @Access Private
 
 router.delete('/:id', (req, res) => {
-    res.send("Delete Contact")
+    Contact.findByIdAndRemove(req.params.id, (err) => {
+        if (err) return err;
+        res.send('Deleted successfully!');
+    })
 });
 
 module.exports = router

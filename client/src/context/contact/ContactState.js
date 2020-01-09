@@ -29,7 +29,7 @@ const ContactState = (props) => {
         contacts: [],
         current: null,
         filterd: null,
-        error:null
+        error: null
     };
 
 
@@ -39,7 +39,7 @@ const ContactState = (props) => {
 
     const getContacts = async () => {
         try {
-            const res = await axois.get("/api/contacts",)
+            const res = await axois.get("/api/contacts")
             dispatch({ type: GET_CONTACTS, payload: res.data })
         } catch (err) {
             dispatch({
@@ -51,10 +51,9 @@ const ContactState = (props) => {
 
 
     // ADD CONTACTS
-
     const addContact = async contact => {
         // contact.id = uuid.v4();
-        const config = {headers: {'Content-Type': 'application/json'}}
+        const config = { headers: { 'Content-Type': 'application/json' } }
         try {
             const res = await axois.post("/api/contacts", contact, config)
             dispatch({ type: ADD_CONTACT, payload: res.data })
@@ -68,10 +67,37 @@ const ContactState = (props) => {
 
 
 
+
+    // UPDATE CONTACT 
+
+    const updateContact = async  contact => {
+        const config = { headers: { 'Content-Type': 'application/json' } }
+        try {
+            const res = await axois.put(`/api/contacts/${contact._id}`, contact, config)
+            dispatch({ type: UPDATE_CONTACT, payload: res.data })
+        } catch (err) {
+            dispatch({
+                type: CONTACTS_ERROR,
+                payload: err.response.msg
+            })
+        }
+    }
+
+
+
+
     // DELETE_CONTACT
 
-    const deleteContact = id => {
-        dispatch({ type: DELETE_CONTACT, payload: id })
+    const deleteContact = async id => {
+        try {
+            await axois.delete(`/api/contacts/${id}`)
+            dispatch({ type: DELETE_CONTACT, payload: id })
+        } catch (err) {
+            dispatch({
+                type: CONTACTS_ERROR,
+                payload: err.response.msg
+            })
+        }
     }
 
 
@@ -90,12 +116,6 @@ const ContactState = (props) => {
     }
 
 
-
-    // UPDATE CONTACT 
-
-    const updateContact = contact => {
-        dispatch({ type: UPDATE_CONTACT, payload: contact })
-    }
 
 
 

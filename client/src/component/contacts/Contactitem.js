@@ -1,12 +1,10 @@
 import React, {useContext} from "react";
 import ContactContaxt from '../../context/contact/contactContext';
 
-
 const ContactsItem = ({contact})  => {
     const contactContext = useContext(ContactContaxt);
-
     const deleteBtn = () => {
-        contactContext.deleteContact(contact.id);
+        contactContext.deleteContact(contact._id);
         contactContext.clearCurrent();
     }
 
