@@ -6,7 +6,7 @@ import Search from '../Search/Search';
 const Contacts = () => {
     const contactContext = useContext(ContactContaxt);
     const { contacts, filterd, loading, getContacts } = contactContext;
-
+    
     useEffect(() => {
         getContacts();
     }, [])
@@ -18,13 +18,13 @@ const Contacts = () => {
             <Search />
 
             {filterd !== null ?
-                    filterd.map(contact => (
-                        <ContactItem key={contact.id} contact={contact} />
-                    ))
-                    :
-                    contacts.map(contact => (
-                        <ContactItem key={contact.id} contact={contact} />
-                    ))
+                filterd.map(contact => (
+                    <ContactItem key={contact.id} contact={contact} />
+                ))
+                :
+                contacts.map(contact => (
+                    <ContactItem key={contact.id} contact={contact} />
+                ))
             }
         </div>
     )

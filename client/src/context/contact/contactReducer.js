@@ -1,9 +1,8 @@
-
 import {
     DELETE_CONTACT,
     SET_CURRENT,
     CLEAR_CURRENT,
-    UPDATE_CONTACT, 
+    UPDATE_CONTACT,
     FILTER_CONTACTS,
     CLEAR_FILTER,
     SET_ALERT,
@@ -14,8 +13,6 @@ import {
     CLEAR_CONTACTS
 } from '../type';
 
-
-
 export default (state, action) => {
     switch (action.type) {
         case ADD_CONTACT:
@@ -23,21 +20,18 @@ export default (state, action) => {
                 ...state,
                 contacts: [...state.contacts, action.payload]
             }
-        case GET_CONTACTS: 
-        return {
-            ...state,
-            contacts: action.payload,
-            loading: false,
-
-        }
+        case GET_CONTACTS:
+            return {
+                ...state,
+                contacts: action.payload,
+                loading: false,
+            }
         case UPDATE_CONTACT:
             return {
                 ...state,
                 contacts: state.contacts.map(contact => contact._id === action.payload._id ? action.payload : contact),
                 loading: false,
-
             }
-
         case FILTER_CONTACTS:
             return {
                 ...state,
@@ -46,46 +40,38 @@ export default (state, action) => {
                     return contact.name.match(Regx) || contact.email.match(Regx)
                 }),
                 loading: false,
-
             }
-
         case CLEAR_FILTER:
-            return{
+            return {
                 ...state,
                 filterd: null,
                 loading: false,
-
             }
-
         case DELETE_CONTACT:
             return {
                 ...state,
                 contacts: state.contacts.filter(contact => contact._id !== action.payload),
                 loading: false,
-                
             }
-
         case SET_CURRENT:
             return {
                 ...state,
                 current: action.payload
             }
-
         case CLEAR_CURRENT:
-            return{
+            return {
                 ...state,
                 current: null
             }
         case CONTACTS_ERROR:
-            return{
+            return {
                 ...state,
                 error: action.payload,
                 loading: false,
             }
-            
         default:
             return state;
-    }
-}
+    };
+};
 
 

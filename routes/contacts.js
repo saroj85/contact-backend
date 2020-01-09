@@ -1,26 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../modal/Users");
 const auth = require("../middleware/auth");
 const Contact = require("../modal/Contacts");
-const bcrypt = require("bcryptjs");
-const Jwt = require("jsonwebtoken");
-const config = require("config");
 const { check, validationResult } = require('express-validator');
-
 
 // @Route  GET/users
 // @desc   GET All contacts 
 // @Access Private
 router.get('/', auth, async (req, res) => {
     try {
-        const contacts = await Contact.find({user: req.user.id}).sort({date: -1});
+        const contacts = await Contact.find({ user: req.user.id }).sort({ date: -1 });
         res.json(contacts)
-        
+
     } catch (err) {
         console.error(err.message);
-        res.status(500).send({msg: "Server Error"})
-        
+        res.status(500).send({ msg: "Server Error" })
+
     }
 });
 
@@ -34,23 +29,22 @@ router.post('/', auth, async (req, res) => {
     if (!error.isEmpty()) {
         return res.status(400).json({ error: error.array() });
     }
-    const {name , email , phone, type} = req.body;
+    const { name, email, phone, type } = req.body;
     try {
         const newContact = new Contact({
             name: name,
-            email : email,
+            email: email,
             phone: phone,
             type: type,
             user: req.user.id
         })
 
-        const contact =  await newContact.save();
+        const contact = await newContact.save();
         res.json(contact);
-        
     } catch (err) {
         console.error(err.message);
-        res.status(500).send({msg: "server Errro"});
-        
+        res.status(500).send({ msg: "server Errro" });
+
     }
 });
 
@@ -60,22 +54,12 @@ router.post('/', auth, async (req, res) => {
 // @desc   Update Contacts
 // @Access Private
 
-
 router.put('/:id', (req, res) => {
-    // res.send("Update Contact")
     console.log(req)
     Contact.findByIdAndUpdate(req.params.id, req.body, (err) => {
         if (err) return err;
         res.send('Update Contact successfully!');
     })
-
-    // Contact.findByIdAndUpdate(req.params.id, {
-    //     $set: {
-    //         subject: req.body.subject,
-    //         description: req.body.description,
-    //         currentStep: req.body.currentStep
-    //     }
-    // }, callback);
 });
 
 

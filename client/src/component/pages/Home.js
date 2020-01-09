@@ -5,8 +5,6 @@ import AuthContext from '../../context/auth/authContext'
 
 const Home = () => {
     const authContext = useContext(AuthContext);
-
-
     useEffect(() => {
         authContext.loadUser();
     },[])
@@ -17,7 +15,6 @@ const Home = () => {
             <div className="row">
             <ContactForm />
             <Contact />
-           
             </div>
         </div>
     )

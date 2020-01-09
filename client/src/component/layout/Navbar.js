@@ -1,15 +1,13 @@
-import React, {useContext} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
 
 
 
-const Navbar = ({title, icon}) => {
+const Navbar = ({ title, icon }) => {
     const authContext = useContext(AuthContext);
-
-    const {isAuthenticated, login, logout, user}  = authContext;
-
-    const onLogout =() => {
+    const { isAuthenticated, login, logout, user } = authContext;
+    const onLogout = () => {
         logout()
     }
 
@@ -24,9 +22,9 @@ const Navbar = ({title, icon}) => {
 
     const authLink = (
         <React.Fragment>
-            <li style={{color: "#fff"}}><i className="far fa-user"></i> &nbsp; Hello {user && user.name}</li>
+            <li style={{ color: "#fff" }}><i className="far fa-user"></i> &nbsp; Hello {user && user.name}</li>
             <li>
-                <a href="#!"  onClick={onLogout}>logout</a>
+                <a href="#!" onClick={onLogout}>logout</a>
             </li>
         </React.Fragment>
     );
@@ -39,7 +37,7 @@ const Navbar = ({title, icon}) => {
             </h1>
 
             <ul>
-                {isAuthenticated ? authLink: gustLink}
+                {isAuthenticated ? authLink : gustLink}
             </ul>
 
         </div>

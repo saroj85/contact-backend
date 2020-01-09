@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../modal/Users");
-const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const Jwt = require("jsonwebtoken");
 const config = require("config");
@@ -11,6 +10,7 @@ const { check, validationResult } = require('express-validator');
 // @Route  POST/users
 // @Route  POST/register
 // @Route  users
+
 router.post('/', [
     check("name", "name is required").not().isEmpty(),
     check("email", "please enter valid email ").isEmail(),
@@ -41,23 +41,20 @@ router.post('/', [
         user.password = await bcrypt.hash(password, salt);
         await user.save();
         const payload = {
-            user : {
+            user: {
                 id: user.id
             }
-        }
+        };
 
-        Jwt.sign(payload, config.get("jwtSecret"), {expiresIn : 36000}, (err, token) => {
-            if(err) throw err;
-            res.json({token})
-        })
-        // res.send("User saved");
-
+        Jwt.sign(payload, config.get("jwtSecret"), { expiresIn: 36000 }, (err, token) => {
+            if (err) throw err;
+            res.json({ token })
+        });
 
     } catch (error) {
         console.error(error.message);
-        res.status(500).send("Server Error")
-
-    }
+        res.status(500).send("Server Error");
+    };
 });
 
 

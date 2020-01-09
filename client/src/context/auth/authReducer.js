@@ -11,12 +11,12 @@ import {
 
 
 
-export default (state, action ) => {
+export default (state, action) => {
     switch (action.type) {
         case USER_LOADED:
-            return{
+            return {
                 ...state,
-                user:action.payload,
+                user: action.payload,
                 isAuthenticated: true,
                 loading: false,
             }
@@ -43,11 +43,11 @@ export default (state, action ) => {
                 error: action.payload
             }
         case CLEAR_ERRORS:
-            return{
+            return {
                 ...state,
                 error: null
             }
-    
+
         default:
             break;
     }

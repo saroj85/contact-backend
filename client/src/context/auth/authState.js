@@ -3,9 +3,6 @@ import AuthContext from './authContext';
 import AuthReducer from './authReducer';
 import axois from 'axios';
 import SetAuthToken from '../../utils/setAuthToken';
-
-
-
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
@@ -18,7 +15,6 @@ import {
 } from '../type';
 
 
-
 const AuthState = (props) => {
     const initialState = {
         token: localStorage.getItem("token"),
@@ -29,27 +25,17 @@ const AuthState = (props) => {
     };
     const [state, dispatch] = useReducer(AuthReducer, initialState);
 
-
-
+    // load user 
     const loadUser = async () => {
-
-        if(localStorage.token){
-            SetAuthToken(localStorage.token)
-        }
-        
+        if (localStorage.token)  SetAuthToken(localStorage.token)
         try {
             const res = await axois.get('/api/auth');
-            dispatch({
-                type: USER_LOADED,
-                payload: res.data
-            })
+            dispatch({type: USER_LOADED,payload: res.data})
         } catch (err) {
-            dispatch({
-                type: AUTH_ERROR,
-            })
-        }
-        
-    }
+            dispatch({type: AUTH_ERROR})
+        };
+    };
+
 
     // Register User 
     const registerUser = async FormData => {
@@ -58,7 +44,6 @@ const AuthState = (props) => {
                 'Content-Type': 'application/json'
             }
         }
-
         try {
             const res = await axois.post('/api/users', FormData, config);
             dispatch({
@@ -76,18 +61,13 @@ const AuthState = (props) => {
     }
 
 
-    // USER_LOADED
-
-
-  
-
-    const login =  async FormData  => {
+    // Login user 
+    const login = async FormData => {
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-
         try {
             const res = await axois.post('/api/auth', FormData, config);
             dispatch({
@@ -99,16 +79,18 @@ const AuthState = (props) => {
             dispatch({
                 type: LOGIN_FAIL,
                 payload: err.response.data.msg
-            })
+            });
+        };
+    };
 
-        }
-    }
+    // logout request 
     const logout = () => {
         dispatch({
             type: LOGOUT
-        })
-        
-    }
+        });
+    };
+
+    // clear error 
     const clearError = () => {
         dispatch({
             type: CLEAR_ERRORS,
