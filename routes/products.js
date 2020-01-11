@@ -4,43 +4,20 @@ const auth = require("../middleware/auth");
 const Product = require("../modal/Products");
 const { check, validationResult } = require('express-validator');
 
-// @Route  GET/product
-// @desc   GET All Products 
-// @Access PUBLIC
-router.get('/' , async (req, res) => {
-    try {
-        const Product = await Product.find();
-        res.json(Product)
-
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send({ msg: "Server Error" })
-
-    }
-});
-
-
-// router.get('/', (req, res, next) => {
-//     Post.find((err, posts) => {
-//         if (err) return next(err)
-//         res.json(posts)
-//     })
-// })
- 
 
 
 // @Route  POST/Product
 // @desc   POST Add Product 
 // @Access Private
 
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
     const error = validationResult(req);
     if (!error.isEmpty()) {
         return res.status(400).json({ error: error.array() });
     }
     const { name, decription, specifation, ratings , price, images, avalibale, catagory} = req.body;
     try {
-        const newProduct = new Contact({
+        const newProduct = new Product({
            name: name,
            decription: decription,
            specifation: specifation,
@@ -56,10 +33,43 @@ router.post('/', auth, async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send({ msg: "server Errro" });
+    }
+});
+
+
+
+
+// @Route  GET/product
+// @desc   GET All Products 
+// @Access PUBLIC
+router.get('/' , async (req, res) => {
+    try {
+        const product = await Product.find();
+        res.json(product)
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send({ msg: "Server Error" })
 
     }
 });
 
+
+
+// @Route  GET/product
+// @desc   GET All Products 
+// @Access PUBLIC
+router.get('/' , async (req, res) => {
+    try {
+        const product = await Product.find();
+        res.json(product)
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send({ msg: "Server Error" })
+
+    }
+});
 
 
 // @Route  PUT/Product
@@ -68,7 +78,7 @@ router.post('/', auth, async (req, res) => {
 
 router.put('/:id', (req, res) => {
     console.log(req)
-    Contact.findByIdAndUpdate(req.params.id, req.body, (err) => {
+    Product.findByIdAndUpdate(req.params.id, req.body, (err) => {
         if (err) return err;
         res.send('Product Update successfully!');
     })
@@ -77,15 +87,18 @@ router.put('/:id', (req, res) => {
 
 
 
-// @Route  DELETE/contacts
-// @desc   DELETE Contacts
+// @Route  DELETE/Product
+// @desc   DELETE Product
 // @Access Private
 
 router.delete('/:id', (req, res) => {
-    Contact.findByIdAndRemove(req.params.id, (err) => {
+    Product.findByIdAndRemove(req.params.id, (err) => {
         if (err) return err;
-        res.send('Deleted successfully!');
+        res.send('Product Deleted successfully!');
     })
 });
+
+
+
 
 module.exports = router

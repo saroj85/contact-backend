@@ -1,5 +1,5 @@
 {
-    "mongoURILOC" : "mongodb://localhost:27017/ContactKeeper",
-    "mongoURI" : "mongodb+srv://Saroj85:Saroj@852131@contactkeeper-v7ban.mongodb.net/test?retryWrites=true&w=majority",
+    "mongoURI" : "mongodb://localhost:27017/ContactKeeper",
+    "mongoURIPROD" : "mongodb+srv://Saroj85:Saroj@852131@contactkeeper-v7ban.mongodb.net/test?retryWrites=true&w=majority",
     "jwtSecret" : "token"
 }

@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 5000;
 const users = require("./routes/users");
 const auth = require("./routes/auth");
 const contacts = require("./routes/contacts");
+const product = require('./routes/products');
 
 app.listen(PORT, () => console.log(`server is running on ${PORT}`));
 
@@ -17,3 +18,4 @@ app.use(express.json({ extended: false }));
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/contacts', contacts);
+app.use('/api/product', product);

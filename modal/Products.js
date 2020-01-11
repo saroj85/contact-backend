@@ -19,7 +19,7 @@ const ProductSchema = new mongoose.Schema({
         type: Object
     },
     images: {
-        type: Object
+        type: Array
     },
     avalibale: {
         type:Boolean
