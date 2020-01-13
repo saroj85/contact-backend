@@ -33,7 +33,8 @@ router.post('/', [
         user = new User({
             name: name,
             email: email,
-            password: password
+            password: password,
+            otp:Math.floor(100000 + Math.random() * 900000),
         });
 
 

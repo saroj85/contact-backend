@@ -14,6 +14,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    otp :{
+        type: Number,
+        require: true
+    },
+
     date: {
         type: Date,
         default: Date.now()
