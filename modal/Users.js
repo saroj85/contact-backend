@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
-        require: true
+        require: [true, 'please enter your valid ']
     },
     email: {
         type: String,
@@ -18,6 +18,14 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
+    isVarifiedUser: {
+        require: true,
+        type: Boolean,
+        default: false
+       
+    },
+    
+
 })
 
 module.exports = mongoose.model("User", UserSchema);

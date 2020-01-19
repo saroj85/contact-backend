@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,
+        td,
+        input,
+        textarea,
+        select,
+        h1,
+        p,
+        h2,
+        h3,
+        h4,
+        p {
+            font-family: 'Asap', sans-serif !important;
+            font-weight: 500;
+        }
+
+        body {
+            font-size: 21px;
+            font-weight: 500;
+            line-height: 1.43;
+            text-align: left;
+            color: #ffffff;
+            font-family: 'Asap', sans-serif !important;
+            padding-top: 30px;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .benefits {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 30px 0px;
+            display: -webkit-flex;
+            /* Safari */
+            -webkit-flex-wrap: wrap;
+            /* Safari 6.1+ */
+            flex-wrap: wrap;
+        }
+
+        .benefits-col {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 13px 10px;
+            box-sizing: border-box;
+            font-family: 'Asap', sans-serif;
+
+        }
+
+        .benefits-col .img {
+            width: 100%;
+            text-align: center;
+            font-family: 'Asap', sans-serif;
+
+        }
+
+        .benefits-col h2 {
+            margin: 0px;
+            margin-top: 15px;
+        }
+
+        .footer_social a {
+            margin-right: 25px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .footer_social a img {
+            vertical-align: middle;
+        }
+
+        .footer_social a:last-child {
+            margin-right: 0px;
+        }
+
+        .footer_flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid #ffffff8a;
+            border-bottom: 1px solid #ffffff6b;
+            padding: 7px 0px;
+        }
+
+        .chapter_wrapper {
+            width: 100%;
+            position: relative;
+            margin-top: 50px;
+        }
+
+        .container_div {
+            border-radius: 40px;
+            background-color: #313133;
+            padding: 20px 0px 45px 0px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container_div {
+                border-radius: 0px;
+            }
+
+            .heading {
+                padding: 0px 10px !important;
+                font-size: 17px !important;
+            }
+
+            body {
+                padding-top: 0px !important;
+                margin: 0px !important;
+            }
+
+            .div_580 {
+                width: 100% !important;
+                margin: 0px !important;
+                padding: 0px !important;
+                max-width: 100% !important;
+            }
+
+            .benefits {
+                font-size: 20px !important;
+            }
+
+            .benefits-col h2 {
+                font-size: 14px !important;
+            }
+
+            .buy_full {
+                font-size: 16px !important;
+            }
+
+            .footer_mobile {
+                padding: 10px !important;
+                box-sizing: border-box;
+            }
+
+        }
+    </style>
+</head>
+
+<body
+    style="background: #000;font-family: 'Asap', sans-serif !important;color: #ffffff;line-height: 1.43;font-weight: 500;text-align: left;">
+    <div style="max-width:580px;margin:auto;padding: 10px 0px;" class="div_580">
+        <div class="container_div">
+            <h2 class="heading"
+                style="padding: 0px 40px; font-size: 18px;font-weight: 500;color: #fff; line-height: 1.43; font-weight: normal; margin-bottom: 20px;">
+                Hi {{name}},<br /><br>
+
+                {{otp}}
+                <br></br>
+
+
+                Thank you for being a part of our online webinar. We thought you were commendable with your
+                participation. <br><br>
+                We have an exclusive offer for you if you subscribe {{date}}</h2>
+
+
+            <div style="padding: 0px 20px;text-align: center;margin: 20px 0px; margin-top: 100px">
+                <a class="buy_full" target="_blank" href="https://pokeruniversity.thebigstack.com/"
+                    style="width: 100%;height: 75px;text-decoration: none;display: block;line-height: 75px; margin: auto;
+                        border-radius: 38px;box-shadow: 0 8px 9px 0 rgba(0, 0, 0, 0.35);background-color: #a78b44;
+                        font-size: 21px;font-weight: bold;text-align: center;color: #ffffff;
+                        outline: none;border: 0px;cursor: pointer;text-transform: uppercase;font-family: 'Asap', sans-serif;" onMouseOver="this.style.opacity='0.8'"
+                    onMouseOut="this.style.opacity='1'">
+                    BUY Full Access Now</a>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
