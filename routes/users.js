@@ -96,9 +96,8 @@ router.post('/otp', async (req, res) => {
 
         // Step 3
         let mailOptions = {
-            from: 'Test Company', // TODO: email sender
-            to:  "test", // TODO: email receiver
-            
+            from: 'send4saroj@gmail.com', // TODO: email sender
+            to: email, // TODO: email receiver
             subject: 'Verify Otp || Test',
             text: 'Wooohooo it works!!',
             template: 'index',
