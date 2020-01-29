@@ -1,4 +1,4 @@
-const express = require("express");
+    const express = require("express");
 const router = express.Router();
 const User = require("../modal/Users");
 const bcrypt = require("bcryptjs");
@@ -7,7 +7,6 @@ const config = require("config");
 const { check, validationResult } = require('express-validator');
 const Otp = require("../modal/Otp");
 const nodemailer = require('nodemailer');
-const Email = require('email-templates');
 const hbs = require('nodemailer-express-handlebars');
 const transporter = require('../transporter');
 
@@ -67,7 +66,6 @@ router.post('/', [
 
 // create otp 
 router.post('/otp', async (req, res) => {
-
     try {
         const email = req.body.email
         const user = await User.findOne({ email: email }).select("_")
@@ -98,8 +96,9 @@ router.post('/otp', async (req, res) => {
 
         // Step 3
         let mailOptions = {
-            from: 'send4saroj@gmail.com', // TODO: email sender
-            to: 'sarojkumar852131@gmail.com', // TODO: email receiver
+            from: 'Test Company', // TODO: email sender
+            to:  "test", // TODO: email receiver
+            
             subject: 'Verify Otp || Test',
             text: 'Wooohooo it works!!',
             template: 'index',
@@ -117,7 +116,6 @@ router.post('/otp', async (req, res) => {
         });
         
         res.json({msg : "otp sent sucessfull"});
-
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server Error")
@@ -128,13 +126,14 @@ router.post('/otp', async (req, res) => {
 
 // verify otp 
 router.post('/otpverify', async (req, res) => {
-    const otpnum = req.body.otpNum;
+    
     try {
+        const otpnum = req.body.otpNum;
         const otpfind = await Otp.findOne({ otpNum: otpnum }).select("-otp");
         if (!otpfind) return res.status(400).json({ msg: "otp not match" });
+
         // going to find user  by user id
         const user_Id = otpfind.user
-        // const user = await User.find({_id: `${user_Id}`});
         User.findOne({ _id: user_Id }, function (err, doc) {
             doc.isVarifiedUser = true;
             doc.save();

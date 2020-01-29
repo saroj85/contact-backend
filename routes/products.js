@@ -11,10 +11,10 @@ const { check, validationResult } = require('express-validator');
 // @Access Private
 
 router.post('/', async (req, res) => {
-    const error = validationResult(req);
-    if (!error.isEmpty()) {
-        return res.status(400).json({ error: error.array() });
-    }
+    // const error = validationResult(req);
+    // if (!error.isEmpty()) {
+    //     return res.status(400).json({ error: error.array() });
+    // }
     const { name, decription, specifation, ratings , price, images, avalibale, catagory} = req.body;
     try {
         const newProduct = new Product({
@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
 router.get('/' , async (req, res) => {
     try {
         const product = await Product.find();
-        res.json(product)
+        res.status(200).json(product);
 
     } catch (err) {
         console.error(err.message);
