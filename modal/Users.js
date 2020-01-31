@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
         require: true,
         type: Boolean,
         default: false
-       
+    
     },
     
 

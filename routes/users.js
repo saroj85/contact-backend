@@ -16,18 +16,21 @@ const transporter = require('../transporter');
 // @Route  POST/register
 // @Route  users
 
-router.post('/', [
+router.post('/', 
+[
     check("name", "name is required").not().isEmpty(),
     check("email", "please enter valid email ").isEmail(),
     check("password", "please enter a password or 6 digits charaters").isLength({ min: 6 })
 
-], async (req, res) => {
+]
+ ,async (req, res) => {
     const error = validationResult(req);
     if (!error.isEmpty()) {
         return res.status(400).json({ error: error.array() });
     }
 
     const { name, email, password } = req.body;
+    console.log(req.body)
     try {
         let user = await User.findOne({ email })
 
