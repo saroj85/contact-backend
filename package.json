@@ -18,7 +18,7 @@
     "email-templates": "^6.1.1",
     "express": "^4.17.1",
     "express-validator": "^6.3.1",
-    "handlebars": "^4.7.2",
+    "handlebars": "^4.7.7",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.3",
     "nodemailer": "^6.4.2",
