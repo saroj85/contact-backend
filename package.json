@@ -13,7 +13,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
-    "config": "^3.2.4",
+    "config": "^3.3.8",
     "ejs": "^3.0.1",
     "email-templates": "^6.1.1",
     "express": "^4.17.1",
